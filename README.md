@@ -3,6 +3,18 @@ Test Doubles Workshop
 
 Code used to do the _Test Doubles_ workshop in Calidae.
 
+How To
+------
+First, install the dependences in your virtual environment with:
+```bash
+pip install -r requirements.txt
+```
+
+In every folder you will find a piece of code to understand one test double.
+Work inside one, and pass the local tests with `pytest`.
+
+Note that _real code_ and tests are in the same file for simplicity.
+
 
 Acknowledgements
 ----------------
