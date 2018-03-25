@@ -30,10 +30,10 @@ def check_code(code):
 def test_launch_missile():
     missile_spy = None  # replace with the spy
     launch_missile(missile_spy, 'RDPC')
-    # assert that was fired
+    # interrogate spy and assert that was fired
 
 
 def test_launch_missile_with_invalid_code():
     missile_spy = None  # replace with the spy
     launch_missile(missile_spy, 'INVALID')
-    # assert that wasn't fired
+    # interrogate spy and assert that wasn't fired
