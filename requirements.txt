@@ -1,0 +1,2 @@
+pytest
+git+git://github.com/anxodio/tenx-missile.git
