@@ -62,7 +62,7 @@ class UsedLaunchCodes(object):
 
 
 def launch_missile(missile, code, used):
-    if used.contains(code.text) or code.is_unsigned or code.is_invalid:
+    if used.contains(code.text) or code.is_unsigned() or code.is_invalid():
         # CODE RED ABORT
         missile.disable()
     else:

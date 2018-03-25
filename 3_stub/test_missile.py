@@ -38,7 +38,7 @@ class Code(object):
 
 
 def launch_missile(missile, code):
-    if code.is_unsigned or code.is_invalid:
+    if code.is_unsigned() or code.is_invalid():
         # CODE RED ABORT
         missile.disable()
     else:
