@@ -34,27 +34,42 @@ class Missile:
 
 # a patchy server :3
 
-def test_fire_missile():
+@patch('tenx_missile.MissileLauncher')
+@patch.object(Missile, '_get_actual_codes')
+def test_fire_missile(get_codes_mock, launcher_mock):
     # make _get_actual_codes return ['valid_code']
+    get_codes_mock.return_value = ['valid_code']
     missile = Missile()
     missile.fire('valid_code')
     # assert that MissileLauncher was fired
+    launcher_mock().fire.assert_called_once()
 
 
-def test_fire_missile_fails_invalid_code():
+@patch('tenx_missile.MissileLauncher')
+@patch.object(Missile, '_get_actual_codes')
+def test_fire_missile_fails_invalid_code(get_codes_mock, launcher_mock):
     # make _get_actual_codes return ['valid_code']
+    get_codes_mock.return_value = ['valid_code']
     missile = Missile()
     missile.fire('invalid_code')
     # assert that MissileLauncher was NOT fired
+    launcher_mock().fire.assert_not_called()
 
 
-def test_get_actual_codes():
+@patch('tenx_missile.MissileLauncher')
+@patch('urllib.request')
+def test_get_actual_codes(request_mock, launcher_mock):
     # make urllib.request...read return 'DPRK<br/>BOOM<br />ACME'
+    request_mock.urlopen.return_value.read.return_value = (
+        'DPRK<br/>BOOM<br />ACME')
     missile = Missile()
     assert missile._codes == ['DPRK', 'BOOM', 'ACME']
 
 
-def test_get_actual_codes_fails():
+@patch('tenx_missile.MissileLauncher')
+@patch('urllib.request')
+def test_get_actual_codes_fails(request_mock, launcher_mock):
     # make urllib.request...read raise a HTTPException'
+    request_mock.urlopen.return_value.read.side_effect = HTTPException
     missile = Missile()
     assert missile._codes == []

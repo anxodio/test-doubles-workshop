@@ -85,12 +85,18 @@ def test_launch_missile():
 
     codeStub = Mock(Code)
     # set expected return values
+    codeStub.is_unsigned.return_value = False
+    codeStub.is_invalid.return_value = False
+    codeStub.text.return_value = 'code'
 
     usedStub = Mock(UsedLaunchCodes)
     # set expected return values
+    usedStub.contains.return_value = False
 
     launch_missile(missileMock, codeStub, usedStub)
     # make assertions about called methods
+    missileMock.fire.assert_called_once()
+    missileMock.disable.assert_not_called()
 
 
 def test_launch_missile_with_repeated_code():
@@ -98,10 +104,16 @@ def test_launch_missile_with_repeated_code():
 
     codeStub = Mock(Code)
     # set expected return values
+    codeStub.is_unsigned.return_value = False
+    codeStub.is_invalid.return_value = False
+    codeStub.text.return_value = 'code'
 
     usedStub = Mock(UsedLaunchCodes)
     # make contains return first false, then true
+    usedStub.contains.side_effect = [False, True]
 
     launch_missile(missileMock, codeStub, usedStub)
     launch_missile(missileMock, codeStub, usedStub)
     # make assertions about called methods
+    missileMock.fire.assert_called_once()
+    missileMock.disable.assert_called_once()

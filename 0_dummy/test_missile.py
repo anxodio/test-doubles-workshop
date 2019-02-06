@@ -25,7 +25,11 @@ def check_code(code):
 #############
 
 # DUMMY WHOT?
+class MissileDummy:
+    def fire(self):
+        raise Exception('boom')
 
 
 def test_launch_missile_with_invalid_code():
     pass  # launch_missile(¿?¿?, 'INVALID')
+    launch_missile(MissileDummy(), 'INVALID')

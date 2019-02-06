@@ -50,26 +50,70 @@ def launch_missile(missile, code):
 #############
 
 # Copy here the mock from the last exercice
+class MissileMock:
+
+    def __init__(self):
+        self.launch_was_called = False
+        self.disable_was_called = False
+
+    def fire(self):
+        self.launch_was_called = True
+
+    def disable(self):
+        self.disable_was_called = True
+
+    def verify_code_red_abort(self):
+        assert not self.launch_was_called
+        assert self.disable_was_called
+
 
 # And here... Stuby Doo!
+class CorrectCodeStub:
+
+    def is_unsigned(self):
+        return False
+
+    def is_invalid(self):
+        return False
+
+
+class InvalidCodeStub:
+
+    def is_unsigned(self):
+        return False
+
+    def is_invalid(self):
+        return True
+
+
+class UnsignedCodeStub:
+
+    def is_unsigned(self):
+        return True
+
+    def is_invalid(self):
+        return False
 
 
 def test_launch_missile():
-    missile_mock = None  # replace with the mock
-    correct_code_stub = None  # replace with the stub
+    missile_mock = MissileMock()  # replace with the mock
+    correct_code_stub = CorrectCodeStub()  # replace with the stub
     launch_missile(missile_mock, correct_code_stub)
     # assert that was fired
+    assert missile_mock.launch_was_called
 
 
 def test_launch_missile_with_invalid_code():
-    missile_mock = None  # replace with the mock
-    invalid_code_stub = None  # replace with the stub
+    missile_mock = MissileMock()  # replace with the mock
+    invalid_code_stub = InvalidCodeStub()  # replace with the stub
     launch_missile(missile_mock, invalid_code_stub)
     # assert code red abort
+    missile_mock.verify_code_red_abort()
 
 
 def test_launch_missile_with_unsigned_code():
-    missile_mock = None  # replace with the mock
-    unsigned_code_stub = None  # replace with the stub
+    missile_mock = MissileMock()  # replace with the mock
+    unsigned_code_stub = UnsignedCodeStub()  # replace with the stub
     launch_missile(missile_mock, unsigned_code_stub)
     # assert code red abort
+    missile_mock.verify_code_red_abort()

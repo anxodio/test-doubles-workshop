@@ -78,17 +78,57 @@ def launch_missile(missile, code, used):
 #############
 
 # Copy here the mock from the last exercice
+class MissileMock:
+
+    def __init__(self):
+        self.launch_was_called = False
+        self.disable_was_called = False
+
+    def fire(self):
+        self.launch_was_called = True
+
+    def disable(self):
+        self.disable_was_called = True
+
+    def verify_code_red_abort(self):
+        assert not self.launch_was_called
+        assert self.disable_was_called
+
 
 # Copy here the correct stub from the last exercice (and add a text method!)
+class CorrectCodeStub:
+
+    def is_unsigned(self):
+        return False
+
+    def is_invalid(self):
+        return False
+
+    def text(self):
+        return 'code'
+
 
 # And here... do your faker magic!
+class UsedLaunchCodesFake:
+    def __init__(self):
+        self._used_codes = set()
+
+    def add(self, code):
+        self._used_codes.add(code)
+
+    def contains(self, code):
+        return code in self._used_codes
+
+    def close(self):
+        pass
 
 
 def test_launch_missile_with_repeated_code():
-    missile_1_mock = None  # replace with the mock
-    missile_2_mock = None  # replace with the mock
-    correct_code_stub = None  # replace with the stub
-    used_launch_codes_fake = None  # replace with the fake
+    missile_1_mock = MissileMock()  # replace with the mock
+    missile_2_mock = MissileMock()  # replace with the mock
+    correct_code_stub = CorrectCodeStub()  # replace with the stub
+    used_launch_codes_fake = UsedLaunchCodesFake()  # replace with the fake
     launch_missile(missile_1_mock, correct_code_stub, used_launch_codes_fake)
     launch_missile(missile_2_mock, correct_code_stub, used_launch_codes_fake)
     # assert code red abort
+    missile_2_mock.verify_code_red_abort()

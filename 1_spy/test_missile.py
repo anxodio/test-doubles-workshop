@@ -25,15 +25,24 @@ def check_code(code):
 #############
 
 # 007 FTW
+class MissileSpy:
+
+    def __init__(self):
+        self.launch_was_called = False
+
+    def fire(self):
+        self.launch_was_called = True
 
 
 def test_launch_missile():
-    missile_spy = None  # replace with the spy
+    missile_spy = MissileSpy()  # replace with the spy
     launch_missile(missile_spy, 'DPRK')
     # interrogate spy and assert that was fired
+    assert missile_spy.launch_was_called
 
 
 def test_launch_missile_with_invalid_code():
-    missile_spy = None  # replace with the spy
+    missile_spy = MissileSpy()  # replace with the spy
     launch_missile(missile_spy, 'INVALID')
     # interrogate spy and assert that wasn't fired
+    assert not missile_spy.launch_was_called

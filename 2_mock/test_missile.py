@@ -49,21 +49,63 @@ def unsign(signed_code, password):
 #############
 
 # Coooooomooooock?
+class MissileSpy:
+
+    def __init__(self):
+        self.launch_was_called = False
+        self.disable_was_called = False
+
+    def fire(self):
+        self.launch_was_called = True
+
+    def disable(self):
+        self.disable_was_called = True
+
+
+def assert_code_red_abort(missile_spy):
+    assert not missile_spy.launch_was_called
+    assert missile_spy.disable_was_called
+
+
+class MissileMock:
+
+    def __init__(self):
+        self.launch_was_called = False
+        self.disable_was_called = False
+
+    def fire(self):
+        self.launch_was_called = True
+
+    def disable(self):
+        self.disable_was_called = True
+
+    def verify_code_red_abort(self):
+        assert not self.launch_was_called
+        assert self.disable_was_called
 
 
 def test_launch_missile():
-    missile_mock = None  # replace with the mock
+    missile_mock = MissileMock()  # replace with the mock
     launch_missile(missile_mock, sign('DPRK', _PASSWORD))
     # assert that was fired
+    assert missile_mock.launch_was_called
 
 
 def test_launch_missile_with_invalid_code():
-    missile_mock = None  # replace with the mock
+    missile_mock = MissileMock()  # replace with the mock
     launch_missile(missile_mock, 'INVALID')
     # assert code red abort
+    # assert not missile_mock.launch_was_called
+    # assert missile_mock.disable_was_called
+    # assert_code_red_abort(missile_mock)
+    missile_mock.verify_code_red_abort()
 
 
 def test_launch_missile_with_unsigned_code():
-    missile_mock = None  # replace with the mock
-    launch_missile(missile_mock, 'RDPC')
+    missile_mock = MissileMock()  # replace with the mock
+    launch_missile(missile_mock, 'DPRK')
     # assert code red abort
+    # assert not missile_mock.launch_was_called
+    # assert missile_mock.disable_was_called
+    # assert_code_red_abort(missile_mock)
+    missile_mock.verify_code_red_abort()
