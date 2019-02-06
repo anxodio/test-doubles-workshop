@@ -1,7 +1,7 @@
 from tenx_missile import MissileLauncher
 
 
-class Missile(object):
+class Missile:
     def __init__(self):
         self._launcher = MissileLauncher()
         self._disabled = False
@@ -15,8 +15,8 @@ class Missile(object):
         self._disabled = True
 
 
-class Code(object):
-    _VALID_CODES = ['RDPC', 'BOOM', 'ACME']
+class Code:
+    _VALID_CODES = ['DPRK', 'BOOM', 'ACME']
     _PASSWORD = 'JONG'
 
     def __init__(self, code, password):
@@ -27,7 +27,7 @@ class Code(object):
     def _check_code(self, code, password):
         if password != self._PASSWORD:
             self._unsigned = True
-        elif code not in self._VALID_CODES:
+        if code not in self._VALID_CODES:
             self._invalid = True
 
     def is_unsigned(self):

@@ -1,7 +1,7 @@
 Test Doubles Workshop
 =====================
 
-Code used to do the _Test Doubles_ workshop in Calidae.
+Code used to do the _Test Doubles_ workshop originaly imparted in Calidae.
 
 How To
 ------

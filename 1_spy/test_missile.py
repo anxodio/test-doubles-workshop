@@ -1,9 +1,9 @@
 from tenx_missile import MissileLauncher
 
-_VALID_CODES = ['RDPC', 'BOOM', 'ACME']
+_VALID_CODES = ['DPRK', 'BOOM', 'ACME']
 
 
-class Missile(object):
+class Missile:
     def __init__(self):
         self._launcher = MissileLauncher()
 
@@ -29,7 +29,7 @@ def check_code(code):
 
 def test_launch_missile():
     missile_spy = None  # replace with the spy
-    launch_missile(missile_spy, 'RDPC')
+    launch_missile(missile_spy, 'DPRK')
     # interrogate spy and assert that was fired
 
 

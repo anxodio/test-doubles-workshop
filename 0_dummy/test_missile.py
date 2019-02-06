@@ -1,9 +1,9 @@
 from tenx_missile import MissileLauncher
 
-_VALID_CODES = ['RDPC', 'BOOM', 'ACME']
+_VALID_CODES = ['DPRK', 'BOOM', 'ACME']
 
 
-class Missile(object):
+class Missile:
     def __init__(self):
         self._launcher = MissileLauncher()
 

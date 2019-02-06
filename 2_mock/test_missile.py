@@ -1,10 +1,10 @@
 from tenx_missile import MissileLauncher
 
-_VALID_CODES = ['RDPC', 'BOOM', 'ACME']
+_VALID_CODES = ['DPRK', 'BOOM', 'ACME']
 _PASSWORD = 'JONG'
 
 
-class Missile(object):
+class Missile:
     def __init__(self):
         self._launcher = MissileLauncher()
         self._disabled = False
@@ -34,7 +34,7 @@ def check_code(code):
 
 
 def sign(code, password):
-    return '{}+{}'.format(code, password)
+    return f'{code}+{password}'
 
 
 def unsign(signed_code, password):
@@ -53,7 +53,7 @@ def unsign(signed_code, password):
 
 def test_launch_missile():
     missile_mock = None  # replace with the mock
-    launch_missile(missile_mock, sign('RDPC', _PASSWORD))
+    launch_missile(missile_mock, sign('DPRK', _PASSWORD))
     # assert that was fired
 
 
